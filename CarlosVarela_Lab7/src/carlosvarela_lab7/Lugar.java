@@ -81,7 +81,7 @@ public class Lugar extends Thread{
         this.habitantes = habitantes;
     }
     
-    public void escribirHabitantes(){
+    public void cargarHabitantes(){
         habitantes = new ArrayList();
         Habitante habitante;
         File archivo;
@@ -104,13 +104,29 @@ public class Lugar extends Thread{
     @Override
     public void run() {
         Segundo segundo = new Segundo();
-        //DefaultTableModel modelo = (DefaultTableModel)segundo.tabla.getModel();
-        DefaultTableModel modelo = new DefaultTableModel();
+        segundo.tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Edad", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        DefaultTableModel modelo = (DefaultTableModel)segundo.tabla.getModel();
         segundo.pack();
         segundo.setLocationRelativeTo(null);
         segundo.setVisible(true);
         try {
             while(true){
+                cargarHabitantes();
                 modelo.setNumRows(0);
                 for (Habitante h : habitantes) {
                     Object row[]= {h.getNombre(), h.getEdad(), h.getID()};
