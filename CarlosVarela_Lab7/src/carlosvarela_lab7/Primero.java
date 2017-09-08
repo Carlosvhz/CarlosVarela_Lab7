@@ -317,7 +317,6 @@ public class Primero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_agregaLugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregaLugarMouseClicked
-        Segundo frame = new Segundo();
         String nombre, zona, clima;
         int extension, año; 
         try {
