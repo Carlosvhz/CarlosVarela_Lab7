@@ -6,6 +6,7 @@
 package carlosvarela_lab7;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +14,15 @@ import javax.swing.JOptionPane;
  * @author carlo
  */
 public class Primero extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Primero
-     */
+    
+   
+   AdministradorHabitante admin = new AdministradorHabitante();
+   JFrame jf = new JFrame();
+   int cont = 0;
     public Primero() {
         initComponents();
+        habitantesEspera = admin.cargarHabitantes();
+        jf.setSize(500, 500);
     }
 
     /**
@@ -44,10 +48,10 @@ public class Primero extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         tf_profesion = new javax.swing.JTextField();
         bt_agregarPersona = new javax.swing.JButton();
-        jd_ventanas = new javax.swing.JDialog();
+        jd_registro = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jl_titulo = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         tf_nombreLugar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -62,7 +66,7 @@ public class Primero extends javax.swing.JFrame {
         cbx_zona = new javax.swing.JComboBox<>();
         bt_agregaLugar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        bt_ventanaPersona = new javax.swing.JButton();
 
         jLabel7.setText("Nombre:");
 
@@ -147,10 +151,7 @@ public class Primero extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -158,28 +159,30 @@ public class Primero extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jd_ventanasLayout = new javax.swing.GroupLayout(jd_ventanas.getContentPane());
-        jd_ventanas.getContentPane().setLayout(jd_ventanasLayout);
-        jd_ventanasLayout.setHorizontalGroup(
-            jd_ventanasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_ventanasLayout.createSequentialGroup()
-                .addGroup(jd_ventanasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jd_ventanasLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+        jLabel14.setText("jLabel14");
+
+        javax.swing.GroupLayout jd_registroLayout = new javax.swing.GroupLayout(jd_registro.getContentPane());
+        jd_registro.getContentPane().setLayout(jd_registroLayout);
+        jd_registroLayout.setHorizontalGroup(
+            jd_registroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_registroLayout.createSequentialGroup()
+                .addGroup(jd_registroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_registroLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jd_ventanasLayout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addGroup(jd_registroLayout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jd_ventanasLayout.setVerticalGroup(
-            jd_ventanasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_ventanasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jd_registroLayout.setVerticalGroup(
+            jd_registroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_registroLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,7 +211,12 @@ public class Primero extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setFocusable(false);
 
-        jButton1.setText("Agregar Persona");
+        bt_ventanaPersona.setText("Registro");
+        bt_ventanaPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_ventanaPersonaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,14 +224,14 @@ public class Primero extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(bt_ventanaPersona)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addComponent(bt_ventanaPersona, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -257,7 +265,7 @@ public class Primero extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tf_año, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(bt_agregaLugar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
@@ -323,22 +331,24 @@ public class Primero extends javax.swing.JFrame {
                 extension = Integer.parseInt(tf_extension.getText());
                 año = Integer.parseInt(tf_año.getText());
                 JOptionPane.showMessageDialog(this, "Lugar agregado");
-                lugarCreado = new Lugar (nombre, clima, zona, extension, año,jd_ventanas);
-                lugarCreado.run();
-                lugares.add(lugarCreado);
+                lugares.add(new Lugar (nombre, clima, zona, extension, año, jf));
+                lugares.get(cont).start();
                 //Vaciar lugares
                 tf_nombreLugar.setText("");
                 tf_climaLugar.setText("");
                 tf_extension.setText("");
                 tf_año.setText("");
                 cbx_zona.setSelectedIndex(0);
+                cont++;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ingrese datos correctamente");
         }
     }//GEN-LAST:event_bt_agregaLugarMouseClicked
 
     private void bt_agregarPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregarPersonaMouseClicked
+        Habitante habitante;
         String nombre, profesion, lugar;
         int id, edad, estatura;
         try {
@@ -352,11 +362,31 @@ public class Primero extends javax.swing.JFrame {
                 estatura = Integer.parseInt(tf_estatura.getText());
                 profesion = tf_profesion.getText();
                 lugar = tf_lugar.getText();
+                habitante = new Habitante(nombre, profesion, id, edad, estatura);
+                admin = new AdministradorHabitante(habitante);
+                admin.escribirHabitante();
                 habitantesEspera.add(new Habitante(nombre, profesion, id, edad, estatura));
+                JOptionPane.showMessageDialog(this, "Usuario agregado");
+                
+                //Vaciar
+                tf_ID.setText("");
+                tf_nombrePersona.setText("");
+                tf_edad.setText("");
+                tf_estatura.setText("");
+                tf_profesion.setText("");
+                tf_lugar.setText("");
+                
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_bt_agregarPersonaMouseClicked
+
+    private void bt_ventanaPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_ventanaPersonaMouseClicked
+        jd_Habitantes.setLocationRelativeTo(null);
+        jd_Habitantes.pack();
+        jd_Habitantes.setModal(true);
+        jd_Habitantes.setVisible(true);
+    }//GEN-LAST:event_bt_ventanaPersonaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -369,7 +399,7 @@ public class Primero extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -396,12 +426,13 @@ public class Primero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_agregaLugar;
     private javax.swing.JButton bt_agregarPersona;
+    private javax.swing.JButton bt_ventanaPersona;
     private javax.swing.JComboBox<String> cbx_zona;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -414,8 +445,7 @@ public class Primero extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JDialog jd_Habitantes;
-    private javax.swing.JDialog jd_ventanas;
-    private javax.swing.JLabel jl_titulo;
+    private javax.swing.JDialog jd_registro;
     private javax.swing.JTextField tf_ID;
     private javax.swing.JTextField tf_año;
     private javax.swing.JTextField tf_climaLugar;

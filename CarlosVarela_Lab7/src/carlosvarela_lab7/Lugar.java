@@ -16,8 +16,9 @@ public class Lugar extends Thread{
     private String nombre, clima, tipo_zona;
     private int extension_territorial, año;
     private ArrayList<Habitante> habitantes = new ArrayList();
-    private JDialog ventana;
-    public Lugar(String nombre, String clima, String tipo_zona, int extension_territorial, int año, JDialog ventana) {
+    private JFrame ventana;
+    
+    public Lugar(String nombre, String clima, String tipo_zona, int extension_territorial, int año, JFrame ventana) {
         this.nombre = nombre;
         this.clima = clima;
         this.tipo_zona = tipo_zona;
@@ -79,7 +80,12 @@ public class Lugar extends Thread{
 
     @Override
     public void run() {
-        ventana.setVisible(true);
+        try {
+            ventana.pack();
+            ventana.setVisible(true);
+            Thread.sleep(6000);
+        } catch (Exception e) {
+        }
     }
     
 }

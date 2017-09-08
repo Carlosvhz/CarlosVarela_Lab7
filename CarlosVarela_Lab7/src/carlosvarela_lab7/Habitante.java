@@ -7,15 +7,16 @@ package carlosvarela_lab7;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author carlo
  */
-public class Habitante {
+public class Habitante implements Serializable{
     private String nombre, profesion;
     private int ID, edad, estatura;
-
+ 
     public Habitante() {
     }
 
@@ -67,10 +68,5 @@ public class Habitante {
         this.estatura = estatura;
     }
     
-    public void EscribirHabitante(){
-        FileOutputStream fo = null;
-        BufferedOutputStream bo = null;
-        
-    }
     
 }
