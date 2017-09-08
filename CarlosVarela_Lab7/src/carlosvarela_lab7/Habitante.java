@@ -14,18 +14,19 @@ import java.io.Serializable;
  * @author carlo
  */
 public class Habitante implements Serializable{
-    private String nombre, profesion;
+    private String nombre, profesion, lugar;
     private int ID, edad, estatura;
  
     public Habitante() {
     }
 
-    public Habitante(String nombre, String profesion, int ID, int edad, int estatura) {
+    public Habitante(String nombre, String profesion, int ID, int edad, int estatura, String lugar) {
         this.nombre = nombre;
         this.profesion = profesion;
         this.ID = ID;
         this.edad = edad;
         this.estatura = estatura;
+        this.lugar = lugar;
     }
 
     public String getNombre() {
@@ -66,6 +67,14 @@ public class Habitante implements Serializable{
     
     public void setEstatura(int estatura) {
         this.estatura = estatura;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
     
     

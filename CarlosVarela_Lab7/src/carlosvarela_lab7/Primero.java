@@ -19,10 +19,10 @@ public class Primero extends javax.swing.JFrame {
    AdministradorHabitante admin = new AdministradorHabitante();
    JFrame jf = new JFrame();
    int cont = 0;
-    public Primero() {
+   
+    public Primero() {        
         initComponents();
         habitantesEspera = admin.cargarHabitantes();
-        jf.setSize(500, 500);
     }
 
     /**
@@ -317,6 +317,7 @@ public class Primero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_agregaLugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregaLugarMouseClicked
+        Segundo frame = new Segundo();
         Lugar lugarCreado;
         String nombre, zona, clima;
         int extension, año; 
@@ -331,9 +332,8 @@ public class Primero extends javax.swing.JFrame {
                 extension = Integer.parseInt(tf_extension.getText());
                 año = Integer.parseInt(tf_año.getText());
                 JOptionPane.showMessageDialog(this, "Lugar agregado");
-                lugares.add(new Lugar (nombre, clima, zona, extension, año, jf));
+                lugares.add(new Lugar (nombre, clima, zona, extension, año));
                 lugares.get(cont).start();
-                //Vaciar lugares
                 tf_nombreLugar.setText("");
                 tf_climaLugar.setText("");
                 tf_extension.setText("");
@@ -362,10 +362,10 @@ public class Primero extends javax.swing.JFrame {
                 estatura = Integer.parseInt(tf_estatura.getText());
                 profesion = tf_profesion.getText();
                 lugar = tf_lugar.getText();
-                habitante = new Habitante(nombre, profesion, id, edad, estatura);
+                habitante = new Habitante(nombre, profesion, id, edad, estatura, lugar);
                 admin = new AdministradorHabitante(habitante);
                 admin.escribirHabitante();
-                habitantesEspera.add(new Habitante(nombre, profesion, id, edad, estatura));
+                habitantesEspera.add(new Habitante(nombre, profesion, id, edad, estatura, lugar));
                 JOptionPane.showMessageDialog(this, "Usuario agregado");
                 
                 //Vaciar

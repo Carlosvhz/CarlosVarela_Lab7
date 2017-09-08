@@ -5,8 +5,12 @@
  */
 package carlosvarela_lab7;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author carlo
@@ -16,15 +20,14 @@ public class Lugar extends Thread{
     private String nombre, clima, tipo_zona;
     private int extension_territorial, año;
     private ArrayList<Habitante> habitantes = new ArrayList();
-    private JFrame ventana;
+
     
-    public Lugar(String nombre, String clima, String tipo_zona, int extension_territorial, int año, JFrame ventana) {
+    public Lugar(String nombre, String clima, String tipo_zona, int extension_territorial, int año) {
         this.nombre = nombre;
         this.clima = clima;
         this.tipo_zona = tipo_zona;
         this.extension_territorial = extension_territorial;
         this.año = año;
-        this.ventana = ventana;
     }
 
     public Lugar() {
@@ -77,13 +80,48 @@ public class Lugar extends Thread{
     public void setHabitantes(ArrayList<Habitante> habitantes) {
         this.habitantes = habitantes;
     }
+    
+    public void escribirHabitantes(){
+        habitantes = new ArrayList();
+        Habitante habitante;
+        File archivo;
+        FileInputStream fo = null;
+        ObjectInputStream oi = null;
+        try {
+            archivo = new File("./Contenido/Habitantes.txt");
+            fo = new FileInputStream(archivo);
+            oi = new ObjectInputStream(fo);
+            while (true) {
+                habitante = (Habitante)oi.readObject();
+                if ( habitante.getLugar().equals(nombre)) {
+                    habitantes.add(habitante);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
 
     @Override
     public void run() {
+        Segundo segundo = new Segundo();
+        //DefaultTableModel modelo = (DefaultTableModel)segundo.tabla.getModel();
+        DefaultTableModel modelo = new DefaultTableModel();
+        segundo.pack();
+        segundo.setLocationRelativeTo(null);
+        segundo.setVisible(true);
         try {
-            ventana.pack();
-            ventana.setVisible(true);
-            Thread.sleep(6000);
+            while(true){
+                modelo.setNumRows(0);
+                for (Habitante h : habitantes) {
+                    Object row[]= {h.getNombre(), h.getEdad(), h.getID()};
+                    modelo.addRow(row);
+                }
+                segundo.tabla.setModel(modelo);
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                }
+            }
         } catch (Exception e) {
         }
     }
