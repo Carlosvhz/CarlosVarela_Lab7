@@ -112,6 +112,7 @@ public class Lugar extends Thread {
         segundo.pack();
         segundo.setLocationRelativeTo(null);
         segundo.setVisible(true);
+       segundo.label1.setText(nombre);
         try {
             while (true) {
                 segundo.tabla.setModel(new javax.swing.table.DefaultTableModel(
