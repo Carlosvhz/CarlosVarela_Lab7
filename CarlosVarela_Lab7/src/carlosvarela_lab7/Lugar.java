@@ -11,17 +11,17 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author carlo
  */
-public class Lugar extends Thread{
-    
+public class Lugar extends Thread {
+
     private String nombre, clima, tipo_zona;
     private int extension_territorial, año;
     private ArrayList<Habitante> habitantes = new ArrayList();
 
-    
     public Lugar(String nombre, String clima, String tipo_zona, int extension_territorial, int año) {
         this.nombre = nombre;
         this.clima = clima;
@@ -80,8 +80,8 @@ public class Lugar extends Thread{
     public void setHabitantes(ArrayList<Habitante> habitantes) {
         this.habitantes = habitantes;
     }
-    
-    public void cargarHabitantes(){
+
+    public void cargarHabitantes() {
         habitantes = new ArrayList();
         Habitante habitante;
         File archivo;
@@ -92,11 +92,16 @@ public class Lugar extends Thread{
             fo = new FileInputStream(archivo);
             oi = new ObjectInputStream(fo);
             while (true) {
-                habitante = (Habitante)oi.readObject();
-                if ( habitante.getLugar().equals(nombre)) {
+                habitante = (Habitante) oi.readObject();
+                if (habitante.getLugar().equals(nombre)) {
                     habitantes.add(habitante);
                 }
             }
+        } catch (Exception e) {
+        }
+        try {
+            fo.close();
+            oi.close();
         } catch (Exception e) {
         }
     }
@@ -104,32 +109,29 @@ public class Lugar extends Thread{
     @Override
     public void run() {
         Segundo segundo = new Segundo();
-        segundo.tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Edad", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        DefaultTableModel modelo = (DefaultTableModel)segundo.tabla.getModel();
         segundo.pack();
         segundo.setLocationRelativeTo(null);
         segundo.setVisible(true);
         try {
-            while(true){
+            while (true) {
+                segundo.tabla.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Nombre", "Edad", "ID"
+                        }
+                ) {
+                    Class[] types = new Class[]{
+                        java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                    };
+
+                    public Class getColumnClass(int columnIndex) {
+                        return types[columnIndex];
+                    }
+                });
+                DefaultTableModel modelo = (DefaultTableModel) segundo.tabla.getModel();
                 cargarHabitantes();
-                modelo.setNumRows(0);
                 for (Habitante h : habitantes) {
-                    Object row[]= {h.getNombre(), h.getEdad(), h.getID()};
+                    Object row[] = {h.getNombre(), h.getEdad(), h.getID()};
                     modelo.addRow(row);
                 }
                 segundo.tabla.setModel(modelo);
@@ -141,5 +143,5 @@ public class Lugar extends Thread{
         } catch (Exception e) {
         }
     }
-    
+
 }

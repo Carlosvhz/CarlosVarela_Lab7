@@ -318,7 +318,6 @@ public class Primero extends javax.swing.JFrame {
 
     private void bt_agregaLugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_agregaLugarMouseClicked
         Segundo frame = new Segundo();
-        Lugar lugarCreado;
         String nombre, zona, clima;
         int extension, año; 
         try {
@@ -363,11 +362,11 @@ public class Primero extends javax.swing.JFrame {
                 profesion = tf_profesion.getText();
                 lugar = tf_lugar.getText();
                 habitante = new Habitante(nombre, profesion, id, edad, estatura, lugar);
-                admin = new AdministradorHabitante(habitante);
-                admin.escribirHabitante();
+                
                 habitantesEspera.add(new Habitante(nombre, profesion, id, edad, estatura, lugar));
                 JOptionPane.showMessageDialog(this, "Usuario agregado");
-                
+                admin = new AdministradorHabitante(habitantesEspera);
+                admin.escribirHabitantes();
                 //Vaciar
                 tf_ID.setText("");
                 tf_nombrePersona.setText("");

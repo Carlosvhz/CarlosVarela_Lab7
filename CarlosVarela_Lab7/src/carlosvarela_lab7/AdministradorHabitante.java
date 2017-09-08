@@ -22,24 +22,26 @@ import sun.awt.FwDispatcher;
  */
 public class AdministradorHabitante {
     
-    private Habitante habitante;
-
+    private ArrayList<Habitante> habitantes = new ArrayList();
+    
     public AdministradorHabitante() {
     }
 
-    public AdministradorHabitante(Habitante habitante) {
-        this.habitante = habitante;
+    public AdministradorHabitante(ArrayList habitante) {
+        this.habitantes = habitante;
     }
 
-    public Habitante getHabitante() {
-        return habitante;
+    public ArrayList<Habitante> getHabitantes() {
+        return habitantes;
     }
 
-    public void setHabitante(Habitante habitante) {
-        this.habitante = habitante;
+    public void setHabitantes(ArrayList<Habitante> habitantes) {
+        this.habitantes = habitantes;
     }
+
     
-    public void escribirHabitante(){
+    
+    public void escribirHabitantes(){
         File archivo;
         FileOutputStream fo = null;
         ObjectOutputStream bo = null;
@@ -58,13 +60,15 @@ public class AdministradorHabitante {
             }
             fo = new FileOutputStream(archivo);
             bo = new ObjectOutputStream(fo);
-            bo.writeObject(habitante);
+            for (Habitante habitante : habitantes) {
+                bo.writeObject(habitante);
+            }
             bo.flush();
         } catch (Exception e) {
         }
         try {
             fo.close();
-             bo.close();
+            bo.close();
         } catch (Exception e) {
         }
     }
